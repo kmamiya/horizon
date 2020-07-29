@@ -105,6 +105,21 @@
                 );
 
                 this.page += 1;
+            },
+
+            /**
+             * Delete a job.
+             */
+            deleteJob: function (job) {
+                return this.$http.delete('/horizon/api/jobs/' + job.id)
+                    .then(response => {
+                        // job deletion is succeeded, reaction is needless.
+                        console.log(response.data.job_id);
+                    })
+                    .catch(error => {
+                        // maybe, job does not exist.
+                        console.log(error);
+                    });
             }
         },
     }
@@ -150,6 +165,9 @@
                     </td>
                     <td>
                         <status :active="job.status == 'completed'" :pending="job.status == 'reserved' || job.status == 'pending'"/>
+                    </td>
+                    <td>
+                        <button type="button" @click="deleteJob(job)">Delete</button>
                     </td>
                 </tr>
             </tbody>
