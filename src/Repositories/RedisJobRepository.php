@@ -569,7 +569,18 @@ class RedisJobRepository implements JobRepository
      */
     public function deleteFailed($id)
     {
-        $this->connection()->zrem('failed_jobs', $id);
+        $this->delete('failed_jobs', $id);
+    }
+
+    /**
+     * Delete a job by type and ID.
+     * @param string $type 'failed_jobs' | 'recent_jobs' | 'recent_failed_jobs'
+     * @param  string  $id
+     * @return int
+     */
+    public function delete($type, $id)
+    {
+        $this->connection()->zrem($type, $id);
 
         $this->connection()->del($id);
     }
