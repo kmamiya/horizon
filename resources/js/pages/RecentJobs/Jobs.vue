@@ -1,8 +1,9 @@
 <script type="text/ecmascript-6">
     import Status from '../../components/Status/Status.vue'
+    import DeleteJobButton from '../../components/DeleteJobButton/DeleteJobButton.vue'
 
     export default {
-        components: {Status},
+        components: {Status, DeleteJobButton},
 
 
         /**
@@ -167,7 +168,7 @@
                         <status :active="job.status == 'completed'" :pending="job.status == 'reserved' || job.status == 'pending'"/>
                     </td>
                     <td>
-                        <button type="button" @click="deleteJob(job)">Delete</button>
+                        <delete-job-button :job_id="job.id" />
                     </td>
                 </tr>
             </tbody>

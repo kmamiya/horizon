@@ -1,9 +1,10 @@
 <script type="text/ecmascript-6">
     import moment from 'moment';
     import Layout from '../../layouts/MainLayout.vue'
+    import DeleteJobButton from '../../components/DeleteJobButton/DeleteJobButton.vue'
 
     export default {
-        components: {Layout},
+        components: {Layout, DeleteJobButton},
 
 
         /**
@@ -177,6 +178,7 @@
                                 <th>Runtime</th>
                                 <th>Failed At</th>
                                 <th>Retry</th>
+                                <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -198,6 +200,9 @@
                                             </svg>
                                         </i>
                                     </span>
+                                </td>
+                                <td>
+                                    <delete-job-button :job_id="job.id" />
                                 </td>
                             </tr>
                         </tbody>
