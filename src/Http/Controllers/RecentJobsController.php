@@ -46,4 +46,26 @@ class RecentJobsController extends Controller
             'total' => $this->jobs->countRecent(),
         ];
     }
+
+    public function destroy(Request $request)
+    {
+        // TODO: validation
+        $job = $this->jobs->getJobs([$request->id])->first();
+        if (empty($job)) {
+            return response(
+                [
+                    'message' => 'job does not exist.',
+                ],
+                404
+            );
+        }
+
+        foreach (['failed_jobs', 'recent_jobs', 'recent_failed_jobs'] as $type) {
+            $this->jobs->delete($type, $job->id);
+        }
+
+        return [
+            'job_id' => $job->id,
+        ];
+    }
 }

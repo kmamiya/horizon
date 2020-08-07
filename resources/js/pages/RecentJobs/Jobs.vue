@@ -1,8 +1,9 @@
 <script type="text/ecmascript-6">
     import Status from '../../components/Status/Status.vue'
+    import DeleteJobButton from '../../components/DeleteJobButton/DeleteJobButton.vue'
 
     export default {
-        components: {Status},
+        components: {Status, DeleteJobButton},
 
 
         /**
@@ -105,6 +106,21 @@
                 );
 
                 this.page += 1;
+            },
+
+            /**
+             * Delete a job.
+             */
+            deleteJob: function (job) {
+                return this.$http.delete('/horizon/api/jobs/' + job.id)
+                    .then(response => {
+                        // job deletion is succeeded, reaction is needless.
+                        console.log(response.data.job_id);
+                    })
+                    .catch(error => {
+                        // maybe, job does not exist.
+                        console.log(error);
+                    });
             }
         },
     }
@@ -150,6 +166,9 @@
                     </td>
                     <td>
                         <status :active="job.status == 'completed'" :pending="job.status == 'reserved' || job.status == 'pending'"/>
+                    </td>
+                    <td>
+                        <delete-job-button :job_id="job.id" />
                     </td>
                 </tr>
             </tbody>
