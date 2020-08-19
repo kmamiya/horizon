@@ -5,6 +5,7 @@ import Routes from './routes';
 import VueRouter from 'vue-router';
 import VueJsonPretty from 'vue-json-pretty';
 
+
 window.Popper = require('popper.js').default;
 
 try {
